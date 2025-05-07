@@ -3,6 +3,9 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const MainRouter = require("./routes/BookRoute");
+const AuthorRouter = require("./routes/AuthorRoute");
+const userRouter = require("./routes/UserRoute");
+
 const port = 5000;
 
 // server
@@ -12,7 +15,9 @@ const server = express();
 server.use(bodyParser.json());
 
 // Router
-server.use("/api", MainRouter);
+server.use("/api/books", MainRouter);
+server.use("/api/authors", AuthorRouter);
+server.use("/api/users", userRouter);
 
 // connection
 mongoose

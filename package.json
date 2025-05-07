@@ -1,5 +1,5 @@
 {
-  "name": "mongdbBook",
+  "name": "mongdbbook",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
@@ -10,8 +10,10 @@
     "nodemon": "^3.1.10"
   },
   "dependencies": {
+    "bcryptjs": "^3.0.2",
     "body-parser": "^2.2.0",
     "express": "^5.1.0",
+    "express-validator": "^7.2.1",
     "mongoose": "^8.14.1"
   }
 }

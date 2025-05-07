@@ -4,8 +4,6 @@ const {
   retrieveBookById,
   updateBook,
   deleteBook,
-  createAuthor,
-  retrieveAuthors,
 } = require("../controllers/Bookcontroller");
 const express = require("express");
 
@@ -13,14 +11,11 @@ const express = require("express");
 const MainRouter = express.Router();
 
 // routes
-MainRouter.post("/books", createBook);
-MainRouter.get("/books", retrieveBook);
-MainRouter.get("/books/:id", retrieveBookById);
-MainRouter.put("/books/:id", updateBook);
-MainRouter.delete("/books/:id", deleteBook);
-// author routes
-MainRouter.post("/author", createAuthor);
-MainRouter.get("/author", retrieveAuthors);
+MainRouter.post("/", createBook);
+MainRouter.get("/", retrieveBook);
+MainRouter.get("/:id", retrieveBookById);
+MainRouter.put("/:id", updateBook);
+MainRouter.delete("/:id", deleteBook);
 
 // export
 module.exports = MainRouter;
