@@ -1,6 +1,6 @@
 const express = require("express");
 const { body } = require("express-validator");
-const { signup } = require("../controllers/UserController");
+const { signup, signin } = require("../controllers/UserController");
 const UserModel = require("../model/UserModel");
 
 const userRouter = express.Router();
@@ -27,4 +27,13 @@ userRouter.post(
   signup
 );
 
+userRouter.post(
+  "/",
+  [
+    body("email").not().isEmpty().custom(emailExist),
+
+    body("password").trim().isLength({ min: 5 }).not().isEmpty(),
+  ],
+  signin
+);
 module.exports = userRouter;
