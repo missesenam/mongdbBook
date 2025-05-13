@@ -14,7 +14,7 @@ const signup = async (req, res) => {
 
     const { name, email, password } = req.body;
 
-    const hashedpassword = await bcrypt.hash(password, 7);
+    const hashedpassword = await bcrypt.hash(password, 10);
 
     const savedUser = await UserModel.create({
       name,
@@ -41,12 +41,25 @@ const signin = async (req, res) => {
         .status(400)
         .json({ message: "validation failed", error: error.array() });
     }
+    const { email, password } = req.body;
+    //  find user. email:email but only email cause same name
+    const finduser = await UserModel.findOne({ email });
 
-    //  find user
-    const finduser = await UserModel.findOne();
-    // compare password
+    if (!finduser) {
+      return res
+        .status(401)
+        .json({ message: "Email and password combination incorrect" });
+    }
+    // Compare the password with the hashed password stored in the database
+    const isMatch = await bcrypt.compare(password, finduser.password);
+    if (!isMatch) {
+      return res
+        .status(401)
+        .json({ message: "Email and password combination incorrect" });
+    }
+    res.status(200).json({ message: "User logged in successfully" });
   } catch (error) {
-    res.status(500).json({ message: "" });
+    res.status(500).json({ message: "failed to sign in" });
   }
 };
 

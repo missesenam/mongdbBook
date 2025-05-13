@@ -15,16 +15,8 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
-  accounts: [
-    {
-      id: {
-        type: Schema.Types.ObjectId,
-        ref: "",
-      },
-    },
-  ],
 });
 
-const UserModel = mongoose.model("user", UserSchema);
+const UserModel = mongoose.model("Bookuser", UserSchema);
 
 module.exports = UserModel;

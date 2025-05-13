@@ -6,13 +6,12 @@ const UserModel = require("../model/UserModel");
 const userRouter = express.Router();
 
 // email exist
-const emailExist = (value, { req }) => {
+const emailExist = async (value, { req }) => {
   // if()
-  return UserModel.findOne({ email: value }).then((userDoc) => {
-    if (userDoc) {
-      return Promise.reject("email already taken");
-    }
-  });
+  const userDoc = await UserModel.findOne({ email: value });
+  if (userDoc) {
+    return Promise.reject("email already taken");
+  }
 };
 
 userRouter.post(
@@ -28,9 +27,9 @@ userRouter.post(
 );
 
 userRouter.post(
-  "/",
+  "/signin",
   [
-    body("email").not().isEmpty().custom(emailExist),
+    body("email").isEmail().not().isEmpty(),
 
     body("password").trim().isLength({ min: 5 }).not().isEmpty(),
   ],

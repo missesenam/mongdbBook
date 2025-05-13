@@ -17,7 +17,7 @@ const AuthorSchema = new Schema({
   },
   bookId: {
     type: Schema.Types.ObjectId,
-    ref: "booksread",
+    ref: "book",
     required: true,
   },
 });
