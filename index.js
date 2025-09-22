@@ -5,8 +5,10 @@ const mongoose = require("mongoose");
 const MainRouter = require("./routes/BookRoute");
 const AuthorRouter = require("./routes/AuthorRoute");
 const userRouter = require("./routes/UserRoute");
+const dotenv = require("dotenv");
+dotenv.config();
 
-const port = 5000;
+const PORT = process.env.PORT || 5000;
 
 // server
 const server = express();
@@ -21,12 +23,10 @@ server.use("/api/users", userRouter);
 
 // connection
 mongoose
-  .connect(
-    "mongodb+srv://esidjograce:L5NgOUFcSOtmgjt9@cluster0.xm0uqvb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-  )
+  .connect(process.env.MONGO_URI)
   .then((resu) => {
-    server.listen(port, () =>
-      console.log(`the server up and ready on port: ${port}`)
+    server.listen(PORT, () =>
+      console.log(`the server up and ready on port: ${PORT}`)
     );
   })
   .catch((err) => console.log(err));
